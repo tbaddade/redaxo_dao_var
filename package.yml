@@ -1,0 +1,16 @@
+package: dao_var
+version: '1.0.0-alpha1'
+author: Thomas Blum
+supportpage: www.redaxo.org/de/forum/
+
+page:
+    title: 'translate:title'
+    perm: admin[]
+    pjax: false
+    icon: rex-icon fa fa-codepen
+    subpages:
+        readme:
+            title: 'translate:readme'
+
+requires:
+    redaxo: '^5.0'
