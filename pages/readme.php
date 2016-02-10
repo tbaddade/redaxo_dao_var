@@ -9,51 +9,72 @@
  * file that was distributed with this source code.
  */
 
-$string = 'REX_DAO_LINK[]';
-$var = '<code>' . $string . '</code>';
-
-$string = 'REX_DAO_LINK[id="1" widget="1"]';
-$varModuleInput = '<code>' . $string . '</code>';
-
-$output = [
-    'REX_DAO_LINK[id="1"]' => '{"label":"$LABEL$","value":"$URL_ID$","name":"$ARTICLE_NAME$"}',
-    'REX_DAO_LINK[id="1" output="url"]' => '$URL$',
-    'REX_DAO_LINK[id="1" output="link"]' => '<a href="$URL$">$LABEL$</a>',
-    'REX_DAO_LINK[id="1" output="link" class="btn"]' => '<a class="btn" href="$URL$">$LABEL$</a>',
+$vars = [
+    [
+        'var' => 'REX_DAO_LINK[]',
+        'inp' => ['REX_DAO_LINK[id="1" widget="1"]'],
+        'out' => [
+            'REX_DAO_LINK[id="1"]' => '{"label":"$LABEL$","value":"$URL_ID$","name":"$ARTICLE_NAME$"}',
+            'REX_DAO_LINK[id="1" output="url"]' => '$URL$',
+            'REX_DAO_LINK[id="1" output="link"]' => '<a href="$URL$">$LABEL$</a>',
+            'REX_DAO_LINK[id="1" output="link" class="btn"]' => '<a class="btn" href="$URL$">$LABEL$</a>',
+        ]
+    ], [
+        'var' => 'REX_DAO_SELECT[]',
+        'inp' => [
+            'REX_DAO_SELECT[id="1" widget="1" options="Please select,H1=h1,H2=h2"]',
+            'REX_DAO_SELECT[id="1" widget="1" options="Please select|optGroup A:H1=h1,H2=h2|optGroup B:H3=h3,H4=h4"]'],
+        'out' => ['REX_DAO_SELECT[id="1"]',],
+    ], [
+        'var' => 'REX_DAO_CATEGORY_SELECT[]',
+        'inp' => [
+            'REX_DAO_CATEGORY_SELECT[id="1" widget="1"]',
+            'REX_DAO_CATEGORY_SELECT[id="1" widget="1" root="5"]'],
+        'out' => ['REX_DAO_CATEGORY_SELECT[id="1"]',],
+    ]
 ];
-$varModuleOutput = '<table class="table">';
-foreach ($output as $th => $td) {
-    $varModuleOutput .= '<tr><th><code>' . $th . '</code></th><td><code>' . htmlspecialchars($td) . '</code></td></tr>';
+
+$rows = '';
+foreach ($vars as $var) {
+    $rows .= '<tr>';
+    $rows .= '<th><code>' . $var['var'] . '</code></th>';
+
+    $rows .= '<td>';
+
+    $rows .= '<dl class="dl-horizontal text-left"><dt>Eingabe:</dt>';
+    foreach ($var['inp'] as $value) {
+        $rows .= '<dd><p><b><code>' . htmlspecialchars($value) . '</code></b></p></dd>';
+    }
+    $rows .= '</dl>';
+
+    $rows .= '<dl class="dl-horizontal text-left"><dt>Ausgabe:</dt>';
+    foreach ($var['out'] as $key => $value) {
+        if (is_int($key)) {
+            $rows .= '<dd><b><code>' . htmlspecialchars($value) . '</code></b></dd>';
+        } else {
+            $rows .= '<dd><p><b><code>' . htmlspecialchars($key) . '</code></b><br /><i class="fa fa-hand-o-right"></i>&nbsp;&nbsp;<code>' . htmlspecialchars($value) . '</code></p></dd>';
+        }
+    }
+    $rows .= '</dl>';
+
+    $rows .= '</td>';
+    $rows .= '</tr>';
+
 }
-$varModuleOutput .= '</table>';
 
 $content = '
 <table class="table">
     <thead>
         <tr>
             <th>Dao Var</th>
-            <th>' . rex_i18n::msg('module') . ' ' . rex_i18n::msg('input') . '</th>
-            <th>' . rex_i18n::msg('module') . ' ' . rex_i18n::msg('output') . '</th>
+            <th>' . rex_i18n::msg('module') . '</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th>' . $var . '</th>
-            <td>' . $varModuleInput . '</td>
-            <td>' . $varModuleOutput . '</td>
-        </tr>
+        ' . $rows . '
     </tbody>
 </table>
 ';
-$string = 'REX_DAO_LINK[]
-REX_DAO_LINK[id="1" widget="1"]
-REX_DAO_LINK[id="1"]    {"label":"Label","value":"Url/Id","name":"Articlename"}
-REX_DAO_LINK[id="1" output="url"]
-REX_DAO_LINK[id="1" output="link"]
-REX_DAO_LINK[id="1" output="link" class="btn"]
-';
-$code = '';
-$code .= rex_string::highlight($string);
 
 $fragment = new \rex_fragment();
 $fragment->setVar('title', $this->i18n('title'), false);
