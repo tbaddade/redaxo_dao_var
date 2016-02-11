@@ -42,23 +42,32 @@ class rex_var_dao_select extends rex_var
             }
             if ($this->hasArg('options') && $this->getArg('options')) {
                 $options = $this->getArg('options');
-                $groups = explode('|', $options);
-                if (count($groups)) {
-                    foreach ($groups as $group) {
-                        $parseGroup = explode(':', $group);
-                        $groupOptions = $parseGroup[0];
-                        if (count($parseGroup) == 2) {
-                            $select->addOptgroup($parseGroup[0]);
-                            $groupOptions = $parseGroup[1];
-                        }
-                        $groupOptions = explode(',', $groupOptions);
-                        if (count($groupOptions)) {
-                            foreach ($groupOptions as $groupOption) {
-                                $optionPair = explode('=', $groupOption);
-                                if (count($optionPair) == 1) {
-                                    $select->addOption($optionPair[0], $optionPair[0]);
-                                } elseif (count($optionPair) == 2) {
-                                    $select->addOption($optionPair[0], $optionPair[1]);
+                if (rex_sql::getQueryType($options) == 'SELECT') {
+                    $select->addSqlOptions($options);
+                } else {
+                    $groups = explode('|', $options);
+                    if (count($groups)) {
+                        foreach ($groups as $group) {
+                            $parseGroup = explode(':', $group);
+                            $groupOptions = $parseGroup[0];
+                            if (count($parseGroup) == 2) {
+                                $select->addOptgroup($parseGroup[0]);
+                                $groupOptions = $parseGroup[1];
+                            }
+
+                            if (rex_sql::getQueryType($groupOptions) == 'SELECT') {
+                                $select->addSqlOptions($groupOptions);
+                            } else {
+                                $groupOptions = explode(',', $groupOptions);
+                                if (count($groupOptions)) {
+                                    foreach ($groupOptions as $groupOption) {
+                                        $optionPair = explode('=', $groupOption);
+                                        if (count($optionPair) == 1) {
+                                            $select->addOption($optionPair[0], $optionPair[0]);
+                                        } elseif (count($optionPair) == 2) {
+                                            $select->addOption($optionPair[0], $optionPair[1]);
+                                        }
+                                    }
                                 }
                             }
                         }
