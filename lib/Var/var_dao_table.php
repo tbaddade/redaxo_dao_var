@@ -65,10 +65,6 @@ class rex_var_dao_table extends rex_var
                 $value['tbody'] = array_fill(1, $initBodyRows, $appendCols);
             }
 
-            echo '<pre>';
-            print_r($value);
-            echo '</pre>';
-
             $table = '';
             $table .= '<table class="dao-table table table-bordered">';
 
@@ -160,12 +156,12 @@ class rex_var_dao_table extends rex_var
                 $colCounter = 0;
                 foreach ($row as $colCounter => $cell) {
                     $cellTag = (($initTitleCols > 0 && $colCounter <= $initTitleCols) || ($groupTag == 'thead')) ? 'th' : 'td';
-                    $return .= '<' . $cellTag . '><textarea name="REX_INPUT_VALUE[' . $id . '][' . $groupTag . '][' . $rowCounter . '][' . $colCounter . ']">R: ' . $rowCounter . ' :: C: ' . $colCounter . ' :: ' . $cell . '</textarea></' . $cellTag . '>';
+                    $return .= '<' . $cellTag . '><textarea name="REX_INPUT_VALUE[' . $id . '][' . $groupTag . '][' . $rowCounter . '][' . $colCounter . ']">' . $cell . '</textarea></' . $cellTag . '>';
                 }
                 if ($colCounter < $initCols) {
                     for ($i = ($colCounter + 1); $i <= $initCols; $i++) {
                         $cellTag = (($initTitleCols > 0 && $colCounter <= $initTitleCols) || ($groupTag == 'thead')) ? 'th' : 'td';
-                        $return .= '<' . $cellTag . '><textarea name="REX_INPUT_VALUE[' . $id . '][' . $groupTag . '][' . $rowCounter . '][' . $i . ']">R: ' . $rowCounter . ' :: ADD C: ' . $i . '</textarea></' . $cellTag . '>';
+                        $return .= '<' . $cellTag . '><textarea name="REX_INPUT_VALUE[' . $id . '][' . $groupTag . '][' . $rowCounter . '][' . $i . ']"></textarea></' . $cellTag . '>';
                     }
                 }
 
@@ -177,7 +173,7 @@ class rex_var_dao_table extends rex_var
                 $return .= '<tr>';
                 for ($j = 1; $j <= $initCols; $j++) {
                     $cellTag = (($initTitleCols > 0 && $j <= $initTitleCols) || ($groupTag == 'thead')) ? 'th' : 'td';
-                    $return .= '<' . $cellTag . '><textarea name="REX_INPUT_VALUE[' . $id . '][' . $groupTag . '][' . $i . '][' . $j . ']">ADD R: ' . $i . ' :: C: ' . $j . '</textarea></' . $cellTag . '>';
+                    $return .= '<' . $cellTag . '><textarea name="REX_INPUT_VALUE[' . $id . '][' . $groupTag . '][' . $i . '][' . $j . ']"></textarea></' . $cellTag . '>';
                 }
                 $return .= '</tr>';
             }
