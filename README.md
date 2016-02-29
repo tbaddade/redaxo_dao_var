@@ -42,7 +42,7 @@ Erzeugt ein `<label>`
 
     label="Meine Bezeichnung"
 
---
+---
 
 <a name="argumente-output"></a>
 ### output="form"
@@ -125,7 +125,7 @@ REX_DAO_CATEGORY_SELECT[id="1" root="5"]
 
     REX_DAO_CATEGORY_SELECT[id="1"]
 
---
+---
 
 <a name="variablen-link"></a>
 ### REX_DAO_LINK
@@ -157,7 +157,7 @@ REX_DAO_LINK[id="1" output="link"]
 REX_DAO_LINK[id="1" output="link" class="btn btn-primary"]
 ```
 
---
+---
 
 <a name="variablen-select"></a>
 ### REX_DAO_SELECT
@@ -236,7 +236,7 @@ Erzeugt folgende Ausgabe
 
     REX_DAO_SELECT[id="1"]
 
---
+---
 
 <a name="variablen-value"></a>
 ### REX_DAO_VALUE
