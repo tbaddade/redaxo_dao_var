@@ -9,3 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Convert some text to Markdown...
+ */
+function markdown($text) {
+	return (new ParsedownExtra)->text($text);
+}
