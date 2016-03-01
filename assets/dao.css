@@ -1,0 +1,311 @@
+
+.docs article {
+    max-width: 900px;
+    padding: 25px 125px 50px 50px;
+    margin-left: 50px;
+}
+
+.docs article h1 {
+    font-size: 44px;
+}
+.docs article ul {
+    font-size: 14px;
+}
+
+.docs article p {
+    margin: 10px 0 20px;
+    line-height: 1.70;
+}
+
+.docs article h1 + ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #f0f2f1;
+    -webkit-font-smoothing: antialiased;
+}
+
+.docs article h1 + ul li:before {
+    content: "# ";
+    margin-right: .25em;
+    color: #2674b2;
+    opacity: .3;
+}
+
+.docs article h1 + ul li a {
+    text-decoration: none;
+}
+
+.docs article li > ul {
+    font-size: 15px;
+    font-weight: 400;
+    list-style: none;
+}
+
+.docs article h2:first-of-type {
+    margin-top: 15px;
+}
+
+.docs article h2 {
+    font-size: 30px;
+    font-weight: 400;
+    margin-top: 55px;
+    position: relative;
+}
+
+.docs article h2 a,
+.docs article h2 a:hover {
+    color: #525252;
+    text-decoration: none;
+}
+
+.docs article h2 a:before {
+    content: "#";
+    margin-left: -25px;
+    position: absolute;
+    font-size: 28px;
+    top: 5px;
+    color: #f4645f;
+    opacity: .6;
+}
+
+.docs article h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 45px;
+}
+
+.docs article h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 35px;
+}
+
+.docs article a {
+    text-decoration: underline;
+}
+
+.docs article table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0 20px;
+    font-size: 14px;
+}
+
+.docs article table th,
+.docs article table td {
+    border: 1px solid #dee0df;
+    padding: 10px;
+    text-align: left;
+}
+
+.docs article table th {
+    background: rgba(238, 238, 238, 0.35);
+    border-bottom-width: 2px;
+    font-size: 14px;
+}
+
+.docs article code[class*="language-"],
+.docs article pre[class*="language-"] {
+    color: #f3f6fb;
+    border: 0;
+    font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 12px;
+    line-height: 2.0;
+    text-shadow: none;
+    vertical-align: middle;
+}
+.docs article h3 code[class*="language-"],
+.docs article h3 pre[class*="language-"] {
+    padding: 10px;
+    border: 0;
+    font-size: 20px;
+    line-height: 2.0;
+    vertical-align: middle;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+    color: black;
+    text-shadow: 0 1px white;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.7;
+    font-size: 11.5px;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    text-shadow: none;
+    background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    text-shadow: none;
+    background: #b3d4fc;
+}
+
+@media print {
+    code[class*="language-"],
+    pre[class*="language-"] {
+        text-shadow: none;
+    }
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: 10px 0 20px;
+    overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+    background: rgba(238, 238, 238, 0.35);
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.125);
+    background-color: #343f50;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #586E75;
+    color: #6f858d;
+}
+
+.token.punctuation {
+    color: #839496;
+}
+
+.namespace {
+    opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #4eb794;
+}
+
+.token.scope, .token.attr-name {
+    color: #4eb794;
+}
+
+.token.selector,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #4eb794;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #bdd9f7;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #bdd9f7;
+}
+
+.token.function {
+    color: #bdd9f7;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #e2f6ee;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+pre.line-numbers {
+    position: relative;
+    padding-left: 3.8em;
+    padding-top: 0px;
+    margin-top: -1px;
+    border-radius:0;
+    counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+    position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: -4px;
+    padding-top: 0px;
+    font-size: 100%;
+    left: -3.8em;
+    width: 3em; /* works for line-numbers below 1000 lines */
+    letter-spacing: -1px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+.line-numbers-rows > span {
+    pointer-events: none;
+    display: block;
+    counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+    content: counter(linenumber);
+    color: #999;
+    display: block;
+    padding-right: 0.8em;
+    text-align: right;
+}

@@ -15,3 +15,11 @@
 function markdown($text) {
 	return (new ParsedownExtra)->text($text);
 }
+
+if (rex::isBackend()) {
+
+    if (rex_be_controller::getCurrentPage() == 'dao_var/readme') {
+        rex_view::addCssFile($this->getAssetsUrl('dao.css'));
+        rex_view::addJsFile($this->getAssetsUrl('prism.js'));
+    }
+}
