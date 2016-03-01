@@ -9,6 +9,15 @@
  * file that was distributed with this source code.
  */
 
+$content = '<div class="docs"><article>' . markdown(rex_file::get(rex_path::addon('dao_var', 'README.md'))) . '</article></div>';
+$content = str_replace(['<pre>', '<code>'], ['<pre class="language-php">', '<code class="language-php">'], $content);
+$fragment = new \rex_fragment();
+//$fragment->setVar('title', $this->i18n('title'), false);
+$fragment->setVar('body', $content, false);
+$content = $fragment->parse('core/page/section.php');
+
+echo $content;
+
 $vars = [
     [
         'var' => 'REX_DAO_LINK[]',
