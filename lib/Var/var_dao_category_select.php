@@ -31,7 +31,7 @@ class rex_var_dao_category_select extends rex_var
                 return false;
             }
             $select = new rex_category_select();
-            if ($this->hasArg('multiple') && $this->getArg('options')) {
+            if ($this->hasArg('multiple') && $this->getArg('multiple')) {
                 $select->setName('REX_INPUT_VALUE[' . $id . '][]');
                 $select->setMultiple();
                 $select->setSelected(rex_var::toArray($value));
@@ -40,7 +40,7 @@ class rex_var_dao_category_select extends rex_var
                 $select->setSelected($value);
             }
             if ($this->hasArg('root') && $this->getArg('root')) {
-                $select->setRootId($this->getArg('root'));
+                $select->setRootId(explode(',', $this->getArg('root')));
             }
 
             $widget = '<div class="rex-select-style">' . $select->get() . '</div>';
