@@ -18,8 +18,10 @@ function markdown($text) {
 
 if (rex::isBackend()) {
 
+    rex_view::addCssFile($this->getAssetsUrl('dao.css'));
+    rex_view::addJsFile($this->getAssetsUrl('vendor/redips/redips-table.js'));
+
     if (rex_be_controller::getCurrentPage() == 'dao_var/readme') {
-        rex_view::addCssFile($this->getAssetsUrl('dao.css'));
         rex_view::addJsFile($this->getAssetsUrl('prism.js'));
     }
 }
