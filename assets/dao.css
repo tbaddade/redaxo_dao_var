@@ -1,4 +1,3 @@
-
 .docs article {
     max-width: 900px;
     padding: 25px 125px 50px 50px;
@@ -308,4 +307,56 @@ pre.line-numbers > code {
     display: block;
     padding-right: 0.8em;
     text-align: right;
+}
+
+
+
+.dao-table,
+.dao-table > thead > tr > th,
+.dao-table > thead > tr > td,
+.dao-table > tbody > tr > th,
+.dao-table > tbody > tr > td,
+.dao-table > tfoot > tr > th,
+.dao-table > tfoot > tr > td {
+    padding: 5px;
+    border-color: #ccc;
+    cursor: pointer;
+}
+.dao-table textarea {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    font-size: 1.2rem;
+    vertical-align: top;
+    resize: none;
+}
+.dao-table textarea:focus {
+    outline: 0;
+}
+.dao-table > thead > tr > th,
+.dao-table > thead > tr > td,
+.dao-table > thead textarea {
+    background-color: #ebebeb;
+}
+.dao-table > thead > tr > th,
+.dao-table > thead > tr > td {
+    border-width: 1px;
+}
+.dao-table > thead > tr:last-child > th,
+.dao-table > thead > tr:last-child > td {
+    border-bottom-color: #999;
+}
+.dao-table > tbody > tr > th,
+.dao-table > tbody > tr > th > textarea {
+    background-color: #f5f5f5;
+}
+.dao-table > tfoot > tr > th,
+.dao-table > tfoot > tr > td,
+.dao-table > tfoot textarea {
+    background-color: #fff;
+}
+.dao-table > tfoot > tr:first-child > th,
+.dao-table > tfoot > tr:first-child > td {
+    border-top-color: #999;
+    border-top-width: 2px;
 }
