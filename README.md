@@ -168,17 +168,28 @@ initial dasselbe Verhalten wie `REX_LINK[id="1"]`
 
 #### Modulausgabe
 
-| Argument | Werte (default)              | Beschreibung                      |
-|:-------- |:---------------------------- |:--------------------------------- |
-| output   | string [`link`, `url`] (url) | gibt einen Link oder eine Url aus |
-| class    | string                       | Gibt die angegeben CSS-Class aus  |
+| Argument | Werte (default)              | Beschreibung                              |
+|:-------- |:---------------------------- |:----------------------------------------- |
+| output   | string [`link`, `url`] (url) | gibt einen Link oder eine Url aus         |
+| class    | string                       | Gibt die angegebene CSS-Class im Link aus |
 
 **Beispiele**
 
     REX_DAO_LINK[id="1"]
+    // Json {"label":"","value":"","clang":"","name":""} 
+    
     REX_DAO_LINK[id="1" output="url"]
+    // index.php?article_id=2&clang=1 (ohne Rewriter)
+    // http://redaxo.org
+    
     REX_DAO_LINK[id="1" output="link"]
+    // <a href="index.php?article_id=2&clang=1">index.php?article_id=2&clang=1</a> (wenn text leer)
+    // <a href="index.php?article_id=2&clang=1">Linktext</a>
+    // <a href="http://redaxo.org">http://redaxo.org</a> (wenn text leer)
+    // <a href="http://redaxo.org">Linktext</a>
+    
     REX_DAO_LINK[id="1" output="link" class="btn btn-primary"]
+    // <a class="btn btn-primary" href="index.php?article_id=2&clang=1">Linktext</a>
 
 
 
