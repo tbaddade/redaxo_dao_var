@@ -22,6 +22,7 @@ class rex_var_dao_link extends rex_var
 
         $valueArray = rex_var::toArray($this->getContextData()->getValue('value' . $id));
         $value = isset($valueArray['value']) ? $valueArray['value'] : '';
+        $clang = isset($valueArray['clang']) ? $valueArray['clang'] : '';
         $label = isset($valueArray['label']) ? $valueArray['label'] : '';
 
         if ($this->hasArg('isset') && $this->getArg('isset')) {
@@ -33,17 +34,25 @@ class rex_var_dao_link extends rex_var
                 return false;
             }
             $args = [];
-            foreach (['category'] as $key) {
+            if (!$this->hasArg('linkmap')) {
+                $args['linkmap'] = true;
+            }
+            if (!$this->hasArg('url')) {
+                $args['url'] = false;
+            }
+            if (!$this->hasArg('text')) {
+                $args['text'] = false;
+            }
+            foreach (['category', 'linkmap', 'url', 'text'] as $key) {
                 if ($this->hasArg($key)) {
                     $args[$key] = $this->getArg($key);
                 }
             }
             $widget = self::getWidget($id, 'REX_INPUT_VALUE[' . $id . '][value]', $valueArray, $args);
 
-            if ($this->hasArg('output') && $this->getArg('output')) {
-                $label = $this->hasArg('label') ? $this->getArg('label') : '';
-                $widget = Dao::getForm($widget, $label, $this->getArg('output'));
-            }
+            $label = $this->hasArg('label') ? $this->getArg('label') : '';
+            $widget = Dao::getForm($widget, $label, $this->getArg('output'));
+
             return self::quote($widget);
         } elseif($this->hasArg('output') && $this->getArg('output')) {
             if (is_numeric($value)) {
@@ -53,7 +62,7 @@ class rex_var_dao_link extends rex_var
                         $label = $art->getName();
                     }
                 }
-                $value = rex_getUrl($value);
+                $value = rex_getUrl($value, $clang);
             } else {
                 if ($label == '') {
                     $label = $value;
@@ -77,9 +86,10 @@ class rex_var_dao_link extends rex_var
     {
         $value = isset($valueArray['value']) ? $valueArray['value'] : '';
         $label = isset($valueArray['label']) ? $valueArray['label'] : '';
+        $clang = isset($valueArray['clang']) ? $valueArray['clang'] : rex_clang::getCurrentId();
 
         $art_name = '';
-        $art = rex_article::get($value);
+        $art = rex_article::get($value, $clang);
         $category = 0;
 
         // Falls ein Artikel vorausgewählt ist, dessen Namen anzeigen und beim öffnen der Linkmap dessen Kategorie anzeigen
@@ -98,21 +108,41 @@ class rex_var_dao_link extends rex_var
         $delete_func = '';
         if (rex::getUser()->getComplexPerm('structure')->hasStructurePerm()) {
             $class = '';
-            $open_func = 'openLinkMap(\'REX_DAO_LINK_' . $id . '\', \'' . $open_params . '\');';
+            $open_func = 'openLinkMap(\'REX_LINK_' . $id . '\', \'' . $open_params . '\');';
             $delete_func = 'deleteREXLink(' . $id . ');';
         }
 
 
         $e = [];
-        $e['field'] = '
-            <input style="width: 40%;" class="form-control" type="text" placeholder="Label" name="REX_INPUT_VALUE[' . $id . '][label]" value="' . htmlspecialchars($label) . '" />
-            <input style="width: 40%;" class="form-control" type="text" placeholder="Url / Id" name="' . $name . '" id="REX_DAO_LINK_' . $id . '" value="' . $value . '" />
-            <input style="width: 20%;" class="form-control" type="text" readonly="readonly" name="REX_INPUT_VALUE[' . $id . '][name]" value="' . htmlspecialchars($art_name) . '" id="REX_DAO_LINK_' . $id . '_NAME" />
-        ';
-        $e['functionButtons'] = '
-                        <a href="#" class="btn btn-popup' . $class . '" onclick="' . $open_func . 'return false;" title="' . rex_i18n::msg('var_link_open') . '"><i class="rex-icon rex-icon-open-linkmap"></i></a>
-                        <a href="#" class="btn btn-popup' . $class . '" onclick="' . $delete_func . 'return false;" title="' . rex_i18n::msg('var_link_delete') . '"><i class="rex-icon rex-icon-delete-link"></i></a>';
+        $e['field'] = '';
+        $e['functionButtons'] = '';
+        if ($args['text']) {
+            $e['field'] .= '<input style="width: 40%;" class="form-control" type="text" placeholder="Label" name="REX_INPUT_VALUE[' . $id . '][label]" value="' . htmlspecialchars($label) . '" />';
+        }
+        if ($args['linkmap'] && $args['url']) {
+            $e['field'] .= '
+                <input style="width: ' . ($args['text'] ? '40' : '80') . '%;" class="form-control" type="text" placeholder="Url / Id" name="' . $name . '" id="REX_LINK_' . $id . '" value="' . $value . '" />
+                <input type="hidden" name="REX_INPUT_VALUE[' . $id . '][clang]" value="' . $clang . '" id="REX_LINK_' . $id . '_CLANG" />
+                <input style="width: 20%;" class="form-control" type="text" readonly="readonly" name="REX_INPUT_VALUE[' . $id . '][name]" value="' . htmlspecialchars($art_name) . '" id="REX_LINK_' . $id . '_NAME" />';
+            $e['functionButtons'] .= '
+                <a href="#" class="btn btn-popup' . $class . '" onclick="' . $open_func . 'return false;" title="' . rex_i18n::msg('var_link_open') . '"><i class="rex-icon rex-icon-open-linkmap"></i></a>
+                <a href="#" class="btn btn-popup' . $class . '" onclick="' . $delete_func . 'return false;" title="' . rex_i18n::msg('var_link_delete') . '"><i class="rex-icon rex-icon-delete-link"></i></a>';
+        } elseif ($args['linkmap']) {
+            $e['field'] .= '
+                <input type="hidden" name="' . $name . '" id="REX_LINK_' . $id . '" value="' . $value . '" />
+                <input type="hidden" name="REX_INPUT_VALUE[' . $id . '][clang]" value="' . $clang . '" id="REX_LINK_' . $id . '_CLANG" />
+                <input style="width: ' . ($args['text'] ? '60' : '100') . '%;" class="form-control" type="text" readonly="readonly" name="REX_INPUT_VALUE[' . $id . '][name]" value="' . htmlspecialchars($art_name) . '" id="REX_LINK_' . $id . '_NAME" />';
+            $e['functionButtons'] .= '
+                <a href="#" class="btn btn-popup' . $class . '" onclick="' . $open_func . 'return false;" title="' . rex_i18n::msg('var_link_open') . '"><i class="rex-icon rex-icon-open-linkmap"></i></a>
+                <a href="#" class="btn btn-popup' . $class . '" onclick="' . $delete_func . 'return false;" title="' . rex_i18n::msg('var_link_delete') . '"><i class="rex-icon rex-icon-delete-link"></i></a>';
+        } elseif ($args['url']) {
+            $e['field'] .= '
+                <input style="width: ' . ($args['text'] ? '60' : '100') . '%;" class="form-control" type="text" placeholder="Url" name="' . $name . '" id="REX_LINK_' . $id . '" value="' . $value . '" />
+            ';
+            $e['functionButtons'] .= '
+                <a href="#" class="btn btn-popup' . $class . '" onclick="' . $delete_func . 'return false;" title="' . rex_i18n::msg('var_link_delete') . '"><i class="rex-icon rex-icon-delete-link"></i></a>';
 
+        }
         $fragment = new rex_fragment();
         $fragment->setVar('elements', [$e], false);
         $media = $fragment->parse('core/form/widget.php');
