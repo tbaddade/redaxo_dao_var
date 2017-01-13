@@ -17,11 +17,11 @@
  */
 class rex_var_dao_table extends rex_var
 {
-    static $initHeadRows = 0;
-    static $initFootRows = 0;
-    static $initBodyRows = 2;
-    static $initCols = 2;
-    static $initTitleCols = 0;
+    public static $initHeadRows = 0;
+    public static $initFootRows = 0;
+    public static $initBodyRows = 2;
+    public static $initCols = 2;
+    public static $initTitleCols = 0;
 
     protected function getOutput()
     {
@@ -41,9 +41,9 @@ class rex_var_dao_table extends rex_var
                 return false;
             }
             $value = rex_var::toArray($value);
-echo '<pre>';
-print_r($value);
-echo '</pre>';
+            echo '<pre>';
+            print_r($value);
+            echo '</pre>';
 
             $initHeadRows = $this->hasArg('trows') ? $this->getArg('trows') : self::$initHeadRows;
             $initFootRows = $this->hasArg('frows') ? $this->getArg('frows') : self::$initFootRows;
@@ -98,7 +98,7 @@ echo '</pre>';
             $table .= $this->getTableGroup($id, 'tbody', $rows, $initBodyRows, $initCols, $initTitleCols);
 
             $table .= '</table>';
-$table .= '
+            $table .= '
             <script>
 
 //$(document).on("rex:ready", function (event, container) {
@@ -327,11 +327,11 @@ getCellCoords = function (table) {
                     $rowspan = isset($cell['rowspan']) ? $cell['rowspan'] : 1;
                     $content = isset($cell['cell']) ? $cell['cell'] : '';
 
-                    $cIndex++;
+                    ++$cIndex;
                     if ($colspan > 1) {
                         $cIndex = $cIndex + $colspan - 1;
                     }
-                    $rIndex++;
+                    ++$rIndex;
                     if ($rowspan > 1) {
                         $rIndex = $rIndex + $rowspan - 1;
                     }

@@ -54,7 +54,7 @@ class rex_var_dao_link extends rex_var
             $widget = Dao::getForm($widget, $label, $this->getArg('output'));
 
             return self::quote($widget);
-        } elseif($this->hasArg('output') && $this->getArg('output')) {
+        } elseif ($this->hasArg('output') && $this->getArg('output')) {
             if (is_numeric($value)) {
                 if ($label == '') {
                     $art = rex_article::get($value);
@@ -141,7 +141,6 @@ class rex_var_dao_link extends rex_var
             ';
             $e['functionButtons'] .= '
                 <a href="#" class="btn btn-popup' . $class . '" onclick="' . $delete_func . 'return false;" title="' . rex_i18n::msg('var_link_delete') . '"><i class="rex-icon rex-icon-delete-link"></i></a>';
-
         }
         $fragment = new rex_fragment();
         $fragment->setVar('elements', [$e], false);

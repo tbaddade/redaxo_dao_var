@@ -12,12 +12,12 @@
 /**
  * Convert some text to Markdown...
  */
-function markdown($text) {
-	return (new ParsedownExtra)->text($text);
+function markdown($text)
+{
+    return (new ParsedownExtra())->text($text);
 }
 
 if (rex::isBackend()) {
-
     rex_view::addCssFile($this->getAssetsUrl('dao.css'));
     rex_view::addJsFile($this->getAssetsUrl('vendor/redips/redips-table.js'));
 

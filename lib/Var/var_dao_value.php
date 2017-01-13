@@ -48,6 +48,7 @@ class rex_var_dao_value extends rex_var
                 $label = $this->hasArg('label') ? $this->getArg('label') : '';
                 $widget = Dao::getForm($widget, $label, $this->getArg('output'));
             }
+
             return self::quote($widget);
         }
 

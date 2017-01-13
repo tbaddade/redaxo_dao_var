@@ -27,7 +27,7 @@ $vars = [
             'REX_DAO_LINK[id="1" output="url"]' => '$URL$',
             'REX_DAO_LINK[id="1" output="link"]' => '<a href="$URL$">$LABEL$</a>',
             'REX_DAO_LINK[id="1" output="link" class="btn"]' => '<a class="btn" href="$URL$">$LABEL$</a>',
-        ]
+        ],
     ], [
         'var' => 'REX_DAO_SELECT[]',
         'inp' => [
@@ -38,21 +38,21 @@ $vars = [
             'REX_DAO_SELECT[id="1" widget="1" options="German articles:SELECT name, id FROM rex_article WHERE clang_id = 1 ORDER BY name|English articles:SELECT name, id FROM rex_article WHERE clang_id = 2 ORDER BY name" output="form:3:9" label="Select an article"]',
             'options ' . "\n" . ' > key=value Pair > Comma "," separated ' . "\n" . ' > optgroups > Pipe "|" separated ' . "\n" . ' > optgroup label > colon ":" separated from the pairs',
         ],
-        'out' => ['REX_DAO_SELECT[id="1"]',],
+        'out' => ['REX_DAO_SELECT[id="1"]'],
     ], [
         'var' => 'REX_DAO_CATEGORY_SELECT[]',
         'inp' => [
             'REX_DAO_CATEGORY_SELECT[id="1" widget="1"]',
-            'REX_DAO_CATEGORY_SELECT[id="1" widget="1" root="5"]'],
-        'out' => ['REX_DAO_CATEGORY_SELECT[id="1"]',],
+            'REX_DAO_CATEGORY_SELECT[id="1" widget="1" root="5"]', ],
+        'out' => ['REX_DAO_CATEGORY_SELECT[id="1"]'],
     ], [
         'var' => 'REX_DAO_VALUE[]',
         'inp' => [
             'REX_DAO_VALUE[id="1" widget="1"]',
             'REX_DAO_VALUE[id="1" widget="1" type="email"]',
-            'REX_DAO_VALUE[id="1" widget="1" type="textarea"]'],
-        'out' => ['REX_DAO_VALUE[id="1"]',],
-    ]
+            'REX_DAO_VALUE[id="1" widget="1" type="textarea"]', ],
+        'out' => ['REX_DAO_VALUE[id="1"]'],
+    ],
 ];
 
 $rows = '';
@@ -80,7 +80,6 @@ foreach ($vars as $var) {
 
     $rows .= '</td>';
     $rows .= '</tr>';
-
 }
 
 $content = '
