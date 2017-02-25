@@ -24,10 +24,4 @@ if (rex::isBackend()) {
     if (rex_be_controller::getCurrentPage() == 'dao_var/readme') {
         rex_view::addJsFile($this->getAssetsUrl('prism.js'));
     }
-
-    rex_extension::register('CHEATSHEET_PROVIDER', function(\rex_extension_point $ep) {
-        $subject = $ep->getSubject();
-        $subject[] = '\DaoVar\Cheatsheet\CheatsheetServiceProvider';
-        $ep->setSubject($subject);
-    });
 }

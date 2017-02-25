@@ -29,19 +29,17 @@ class CheatsheetServiceProvider extends ServiceProvider
      */
     public function page()
     {
-        if (\rex_addon::get('dao_var')->isAvailable()) {
-            $page = \rex_be_controller::getPageObject('cheatsheet/addoff');
-            if (!$page) {
-                $page = new \rex_be_page('addoff', \rex_i18n::msg('dao_var_addoff_title'));
-                $page->setHref(['page' => 'cheatsheet/addoff']);
-            }
-
-            $subpage = new \rex_be_page('dao-var', \rex_i18n::msg('dao_var_cheatsheet_docs_title'));
-            $subpage->setHref(['page' => 'cheatsheet/addoff/dao-var']);
-            $subpage->setSubPath(\rex_path::addon('dao_var', 'lib/Cheatsheet/pages/docs.php'));
-            $page->addSubpage($subpage);
-
-            return $page;
+        $page = \rex_be_controller::getPageObject('cheatsheet/addoff');
+        if (!$page) {
+            $page = new \rex_be_page('addoff', \rex_i18n::msg('dao_var_addoff_title'));
+            $page->setHref(['page' => 'cheatsheet/addoff/dao-var']);
         }
+
+        $subpage = new \rex_be_page('dao-var', \rex_i18n::msg('dao_var_cheatsheet_docs_title'));
+        $subpage->setHref(['page' => 'cheatsheet/addoff/dao-var']);
+        $subpage->setSubPath(\rex_path::addon('dao_var', 'lib/Cheatsheet/pages/docs.php'));
+        $page->addSubpage($subpage);
+
+        return $page;
     }
 }
